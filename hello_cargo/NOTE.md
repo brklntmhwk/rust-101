@@ -1,0 +1,9 @@
+- This project is automatically created by "cargo new hello_cargo"
+  - src/main.rs, Cargo.toml
+- In Rust, we call packages crates
+- target folder is automatically created by "cargo build"
+- main.rs can be executed by ".\target\debug\hello_cargo.exe"
+- "cargo run" does build and execute the file all at once
+- "cargo check" checks if code can be compiled but doesn't execute it
+- "cargo build" has two states, "debug" and "release", the latter one of which can be executed by "cargo build --release"
+  - during build --release, it optimizes code
