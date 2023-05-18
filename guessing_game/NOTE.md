@@ -1,0 +1,3 @@
+- std::
+  - Like a namespace short for a standard library?
+- io is short for input & output
