@@ -1,0 +1,2 @@
+- Added rust-analyzer formatter to .vscode/settings.json
+  - https://qiita.com/nobushi95/items/178431541c6505121b76

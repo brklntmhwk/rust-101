@@ -1,3 +1,4 @@
 - std::
   - Like a namespace short for a standard library?
 - io is short for input & output
+- Rng is a kind of "trait" which defines methods of rand in this case
