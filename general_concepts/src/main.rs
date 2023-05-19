@@ -84,4 +84,86 @@ fn main() {
     println!("remainder: {}", remainder);
 
     /*** Function ***/
+    // main fn runs first of all
+    another_func();
+    func_with_param(5);
+    let x: i32 = func_with_ret_value();
+    println!("func_with_ret_value x: {}", x);
+
+    /*** Control flow ***/
+    /* Conditional branches */
+    let num: i32 = 5;
+    // Unlike JS, all but boolean values cannot automatically be converted to boolean
+    // need to explicitly give boolean values
+    if num % 5 == 0 {
+        println!("num is divisible by 5");
+    } else if num % 4 == 0 {
+        println!("num is divisible by 4");
+    } else if num % 3 == 0 {
+        println!("num is divisible by 3");
+    } else if num % 2 == 0 {
+        println!("num is divisible by 2");
+    } else {
+        println!("num is not divisible by 2, 3, 4, or 5");
+    }
+    let condition: bool = true;
+    // if condition is true, then it returns 5, but if not, it does 6
+    let num: i32 = if condition { 5 } else { 6 };
+    println!("num: {}", num);
+
+    /*** Loop ***/
+    /* loop */
+    let mut cnt: i32 = 0;
+    // 'counting_up is a label
+    'counting_up: loop {
+        println!("cnt: {}", cnt);
+        let mut remaining: i32 = 10;
+        loop {
+            println!("remaining: {}", remaining);
+            if remaining == 9 {
+                break;
+            }
+            if cnt == 2 {
+                break 'counting_up;
+            }
+            remaining -= 1;
+        }
+        cnt += 1;
+    }
+
+    /* for */
+    let elements: [i32; 5] = [10, 20, 30, 40, 50];
+    // This is better than while loop with index var in terms of performance
+    for elem in elements {
+        println!("elem: {}", elem);
+    }
+    for number in (1..4).rev() {
+        println!("number: {}", number);
+    }
+    println!("LIFTOFF!!");
+    /* while */
+    let mut num = 3;
+    while num != 0 {
+        println!("num: {}", num);
+        num -= 1;
+    }
+    println!("LIFTOFF!!!");
+    let mut index = 0;
+    while index < 5 {
+        println!("elements[index]: {}", elements[index]);
+        index += 1;
+    }
+}
+
+/*** Function ***/
+// Where functions are defined doesn't matter when it comes to Rust compiler
+fn another_func() {
+    println!("Another function!!");
+}
+fn func_with_param(x: i32) {
+    println!("function with param! x: {}", x);
+}
+fn func_with_ret_value() -> i32 {
+    // This is a formula so don't add a trailing semicolon
+    99999 % 55555
 }
