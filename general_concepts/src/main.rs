@@ -68,6 +68,15 @@ fn main() {
         "December",
     ];
     println!("months[0]: {}", months[0]);
+    /* String literal (&str) */
+    // hardcoded and immutable
+    let str: &str = "Hello";
+    println!("str: {}", str);
+    /* String */
+    // mutable
+    let mut str: String = String::from("hello");
+    str.push_str(", world!");
+    println!("str: {}", str);
 
     /*** Arithmetic operation ***/
     let sum: i32 = 5 + 10;
@@ -142,13 +151,13 @@ fn main() {
     }
     println!("LIFTOFF!!");
     /* while */
-    let mut num = 3;
+    let mut num: i32 = 3;
     while num != 0 {
         println!("num: {}", num);
         num -= 1;
     }
     println!("LIFTOFF!!!");
-    let mut index = 0;
+    let mut index: usize = 0;
     while index < 5 {
         println!("elements[index]: {}", elements[index]);
         index += 1;

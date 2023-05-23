@@ -33,15 +33,15 @@ impl Rectangle {
 }
 
 fn main() {
-    let rect1 = Rectangle {
+    let rect1: Rectangle = Rectangle {
         width: 30,
         height: 50,
     };
-    let rect2 = Rectangle {
+    let rect2: Rectangle = Rectangle {
         width: 10,
         height: 40,
     };
-    let rect3 = Rectangle {
+    let rect3: Rectangle = Rectangle {
         width: 60,
         height: 45,
     };
@@ -67,7 +67,8 @@ fn main() {
     println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
     println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
     // Just like let str1 = String::from("blah-blah-blah");
-    let sq = Rectangle::square(3);
+    let sq: Rectangle = Rectangle::square(3);
+    println!("sq: {:?}", sq);
 }
 // Since width and height are both relevant each other, using tuple struct makes more sense in terms of structure
 fn area(rectangle: &Rectangle) -> u32 {
