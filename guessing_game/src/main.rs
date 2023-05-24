@@ -22,7 +22,7 @@ fn main() {
             // if Ok, it returns user input strings, but if Err, it does an error message below
             .expect("Failed to read line");
 
-        // If parse fails, it returns Result type so expect can tail
+        // if parse fails, it returns Result type so expect can tail
         let guess: u32 = match guess.trim().parse() {
             Ok(num) => num,
             Err(_) => continue,

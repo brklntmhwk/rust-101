@@ -102,7 +102,7 @@ fn main() {
     /*** Control flow ***/
     /* Conditional branches */
     let num: i32 = 5;
-    // Unlike JS, all but boolean values cannot automatically be converted to boolean
+    // unlike JS, all but boolean values cannot automatically be converted to boolean
     // need to explicitly give boolean values
     if num % 5 == 0 {
         println!("num is divisible by 5");
@@ -142,7 +142,7 @@ fn main() {
 
     /* for */
     let elements: [i32; 5] = [10, 20, 30, 40, 50];
-    // This is better than while loop with index var in terms of performance
+    // this is better than while loop with index var in terms of performance
     for elem in elements {
         println!("elem: {}", elem);
     }
@@ -165,7 +165,7 @@ fn main() {
 }
 
 /*** Function ***/
-// Where functions are defined doesn't matter when it comes to Rust compiler
+// where functions are defined doesn't matter when it comes to Rust compiler
 fn another_func() {
     println!("Another function!!");
 }
@@ -173,6 +173,6 @@ fn func_with_param(x: i32) {
     println!("function with param! x: {}", x);
 }
 fn func_with_ret_value() -> i32 {
-    // This is a formula so don't add a trailing semicolon
+    // this is a formula so don't add a trailing semicolon
     99999 % 55555
 }
