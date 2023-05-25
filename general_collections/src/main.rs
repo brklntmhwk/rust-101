@@ -129,4 +129,30 @@ fn main() {
     let mut scores: HashMap<String, i32> = HashMap::new();
     scores.insert(String::from("Blue"), 10);
     scores.insert(String::from("Yellow"), 50);
+    let team_name: String = String::from("Blue");
+    // how to get access to the data inside
+    let score: i32 = scores.get(&team_name).copied().unwrap_or(0);
+    // iterable over each key-value pair in a hash map using a for loop
+    for (k, v) in &scores {
+        println!("{k}: {v}");
+    }
+    // entry checks if the key name passed is present in the hash map
+    // or_insert inserts the param value into the hashmap if the key doesn't have a value
+    scores.entry(String::from("Yellow")).or_insert(50);
+
+    let field_name: String = String::from("Favorite color");
+    let field_value: String = String::from("Blue");
+    let mut map: HashMap<String, String> = HashMap::new();
+    // the hash map will be the owner of these two values from this line
+    map.insert(field_name, field_value);
+
+    let text: &str =
+        "hello world wonderful world really really beautiful world what an amazing world";
+    let mut map: HashMap<&str, i32> = HashMap::new();
+    for word in text.split_whitespace() {
+        let count: &mut i32 = map.entry(word).or_insert(0);
+        *count += 1;
+    }
+    // the hash map iterated over comes out in an arbitrary order
+    println!("map: {:?}", map);
 }
