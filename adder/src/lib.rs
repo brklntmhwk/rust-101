@@ -8,6 +8,10 @@ pub fn add(left: usize, right: usize) -> usize {
     left + right
 }
 
+pub fn add_two(a: i32) -> i32 {
+    internal_adder(a, 2)
+}
+
 pub fn greeting(name: &str) -> String {
     String::from("Hello!")
 }
@@ -38,6 +42,11 @@ impl Guess {
     }
 }
 
+fn internal_adder(a: i32, b: i32) -> i32 {
+    a + b
+}
+
+// tells the Rust compiler that this block shouldn't be included in compiling
 #[cfg(test)]
 mod tests {
     // a mod for test also follows the visibility rules
@@ -106,6 +115,7 @@ mod tests {
     }
 
     /* Result<T, E> in tests instead of panic! */
+    #[test]
     fn it_works() -> Result<(), String> {
         // to assert that an operation returns an Err variant, use assert!(value.is_err()), not the trailing ? operator
         if 2 + 2 == 4 {
@@ -113,5 +123,17 @@ mod tests {
         } else {
             Err(String::from("two plus two does not equal four"))
         }
+    }
+
+    #[test]
+    #[ignore]
+    fn expensive_test() {
+        // when you want exclude some tests because of them being expensive or something, use the ignore attribute
+    }
+
+    #[test]
+    fn internal() {
+        // calls the private func internal_adder
+        assert_eq!(4, internal_adder(2, 2))
     }
 }
