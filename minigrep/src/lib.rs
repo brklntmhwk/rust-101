@@ -47,7 +47,7 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 
     results
 
-    // using an iter, the above code also looks like this
+    // using an iter, you can omit the intermediate vec and the above code looks like this:
     // contents
     //     .lines()
     //     .filter(|line| line.contains(query))
