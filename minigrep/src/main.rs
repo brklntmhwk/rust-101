@@ -15,7 +15,7 @@ fn main() {
     // let config = parse_config(&args);
 
     // unwrap_or_else is similar to unwrap when the status is Ok, but it allows you to customize what to do when it's Err with an anonymous func that defines it accepted in its arg
-    let config = Config::build(&args).unwrap_or_else(|err| {
+    let config = Config::build(/* &args */ env::args()).unwrap_or_else(|err| {
         eprintln!("Problem parsing arguments: {err}");
         process::exit(1);
     });

@@ -46,6 +46,12 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     }
 
     results
+
+    // using an iter, the above code also looks like this
+    // contents
+    //     .lines()
+    //     .filter(|line| line.contains(query))
+    //     .collect()
 }
 
 pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
@@ -98,16 +104,32 @@ pub struct Config {
 // }
 
 impl Config {
-    pub fn build(args: &[String]) -> Result<Config, &'static str> {
-        if args.len() < 3 {
-            // panic!("not enough arguments");
-            return Err("not enough arguments");
-        }
-        let query = args[1].clone();
-        let file_path = args[2].clone();
+    pub fn build(
+        /* args: &[String] */ mut args: impl Iterator<Item = String>,
+    ) -> Result<Config, &'static str> {
+        // the fist arg returned from env::args is the name of the program, so go one step further in advance
+        args.next();
+
+        let query = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a query string"),
+        };
+
+        let file_path = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a file path"),
+        };
+
         let ignore_case = env::var("IGNORE_CASE").is_ok();
 
-        // Config { query, file_path }
+        // if args.len() < 3 {
+        //     // panic!("not enough arguments");
+        //     return Err("not enough arguments");
+        // }
+        // let query = args[1].clone();
+        // let file_path = args[2].clone();
+        // let ignore_case = env::var("IGNORE_CASE").is_ok();
+
         Ok(Config {
             query,
             file_path,
