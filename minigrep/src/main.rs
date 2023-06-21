@@ -6,7 +6,7 @@ use minigrep::Config;
 fn main() {
     // to also cope with invalid Unicode, use args_os instead
     // collect func is one you often need to annotate types since Rust isn't able to infer the kind of collection
-    let args: Vec<String> = env::args().collect();
+    let _args: Vec<String> = env::args().collect();
 
     // the main func shouldn't contain logic parts in terms of separation of concerns
     // let query = &args[1];
