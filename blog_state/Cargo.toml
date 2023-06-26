@@ -1,5 +1,5 @@
 [package]
-name = "object_oriented_programming"
+name = "blog_state"
 version = "0.1.0"
 edition = "2021"
 
