@@ -33,12 +33,12 @@ pub fn hello_macro_derive(input: TokenStream) -> TokenStream {
 
 fn impl_hello_macro(ast: &syn::DeriveInput) -> TokenStream {
     let name = &ast.ident;
-    let gen = quote! {
+    let gen = quote! { // this lets you define the Rust code you want to return
         impl HelloMacro for #name {
             fn hello_macro() {
                 println!("Hello, Macro! My name is {}!", stringify!(#name));
             }
         }
     };
-    gen.into()
+    gen.into() // this returns a val of the TokenStream type
 }
