@@ -5,6 +5,9 @@
 // Rc<T> ...
 // RefCell<T> ...
 
+/* What's different from a raw pointer? */
+// operate based on internal logic that a programmer writes
+
 /* Box<T> is a pointer that tells the Rust compiler how much space it needs */
 // it provides only the indirection and heap allocation
 // a pointer's size does not change based on the amount of data it's pointing to
@@ -16,7 +19,8 @@ enum List1 {
 use crate::List1::{Cons1, Nil1};
 
 /* Rc<T> is an abbreviation for reference counting and keeps track of the number of refs to a value to judge whether the val is still in use */
-/* this can be likened to a situation where family members watch TV in a living room; When anyone of them enters to watch TV, they turn it on; Others can come into the room and watch it; When the last one of them leaves the room, they have to turn it off. */
+// this can be likened to a situation where family members watch TV in a living room; When anyone of them enters to watch TV, they turn it on; Others can come into the room and watch it; When the last one of them leaves the room, they have to turn it off.
+// allows you to clone other Rc smart pointers that have the ability to immutably borrow the data that was placed on the heap (e.g. clone())
 enum List2 {
     Cons2(i32, Rc<List2>),
     Nil2,
@@ -74,6 +78,32 @@ struct Node {
     children: RefCell<Vec<Rc<Node>>>,
 }
 
+// https://tourofrust.com/103_ja.html
+struct Pie {
+    slices: u8,
+}
+
+impl Pie {
+    fn eat_slice(&mut self, name: &str) {
+        println!("{} took a slice!", name);
+        self.slices -= 1;
+    }
+}
+
+struct SeaCreature {
+    name: String,
+    pie: Rc<RefCell<Pie>>,
+}
+
+impl SeaCreature {
+    fn eat(&self) {
+        // use smart pointer to pie for a mutable borrow
+        let mut p = self.pie.borrow_mut();
+        // take a bite!
+        p.eat_slice(&self.name);
+    }
+}
+
 fn main() {
     {
         // putting the recursive cons in Box, the seemingly infinite (to the Rust compiler) recursion becomes manifest in its size
@@ -122,8 +152,8 @@ fn main() {
 
     {
         /* the combi of Rc<T> and RefCell<T> */
-        // enables you to have multiple owners of mut data
-        let value = Rc::new(RefCell::new(5));
+        // enables you to have multiple owners of mut data allowing multiple smart pointers to borrow, whether mutably or immutably, the same data struct
+        let value: Rc<RefCell<i32>> = Rc::new(RefCell::new(5));
 
         let a = Rc::new(Cons3(Rc::clone(&value), Rc::new(Nil3)));
 
@@ -139,6 +169,26 @@ fn main() {
         println!("a after = {:?}", a);
         println!("b after = {:?}", b);
         println!("c after = {:?}", c);
+    }
+
+    {
+        let pie = Rc::new(RefCell::new(Pie { slices: 8 }));
+        // ferris and sarah are given clones of smart pointer to pie
+        let ferris = SeaCreature {
+            name: String::from("ferris"),
+            pie: pie.clone(),
+        };
+        let sarah = SeaCreature {
+            name: String::from("sarah"),
+            pie: pie.clone(),
+        };
+        // Now, you guys can eat a slice of the pie!!
+        ferris.eat(); // the pie lost one of itself
+        sarah.eat(); // the pie lost one of itself
+
+        // Let's see how many left..
+        let p = pie.borrow();
+        println!("{} slices left", p.slices); // must be 6
     }
 
     {
